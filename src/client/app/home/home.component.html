@@ -1,0 +1,49 @@
+
+
+<form [formGroup]="addPersonForm">
+
+  <p>First name:</p>
+  <input type="text" formControlName="firstName" placeholder="First name:">
+  <span *ngIf="addPersonForm.get('firstName').dirty && addPersonForm.get('firstName').touched && addPersonForm.get('firstName').invalid" class="alert">This is not a valid field</span>
+  <span *ngIf="addPersonForm.get('firstName').dirty && addPersonForm.get('firstName').touched && addPersonForm.get('firstName').errors?.required" class="alert">Please fill in</span>
+  <span *ngIf="addPersonForm.get('firstName').dirty && addPersonForm.get('firstName').touched && addPersonForm.get('firstName').errors?.pattern" class="alert">Only letters and space</span>
+  <p>Last name:</p>
+  <input type="text" formControlName="lastName" placeholder="Last name:">
+  <span *ngIf="addPersonForm.get('lastName').dirty && addPersonForm.get('lastName').touched && addPersonForm.get('lastName').invalid" class="alert">This is not a valid field</span>
+  <span *ngIf="addPersonForm.get('lastName').dirty && addPersonForm.get('lastName').touched && addPersonForm.get('lastName').errors?.required" class="alert">Please fill in</span>
+  <span *ngIf="addPersonForm.get('lastName').dirty && addPersonForm.get('lastName').touched && addPersonForm.get('lastName').errors?.pattern" class="alert">Only letters and space</span>
+
+  <p>E-mail address:</p>
+  <input type="text" formControlName="email" placeholder="E-mail address:">
+
+   <div class="alert" *ngIf="addPersonForm.invalid">The form is not valid!</div>
+
+<button (click)="addPerson()">Add </button>
+</form>
+
+<hr>
+  <table style="width:50%">
+    <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <button (click)="addPersonFromApi()"> AddPersonFromApi</button>
+
+  <tr *ngFor="let person of persons; let index = index">
+    <td>
+      {{person.firstName}}
+      <input [(ngModel)]="person.firstName" *ngIf="person.isEditing">
+      {{person.lastName}}
+      <input [(ngModel)]="person.lastName" *ngIf="person.isEditing">
+    <td>
+      {{person.email}}
+      <input [(ngModel)]="person.email" *ngIf="person.isEditing">
+      </td>
+
+    <button (click) = "editPerson(person)" style = "background-color:red">Edit</button>
+    <span style="font-family: wingdings; font-size: 200%;">&#9998;</span>
+    <button *ngIf = "person.isEditing" (click) = "person.isEditing = false">Save</button>
+    <button (click)="removePerson(person, index)" style = "margin : 13px 12px 12px 15px"> Delete</button>
+  </tr>
+</table>
+<br><br><feedback>
+</feedback>
